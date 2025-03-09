@@ -5,6 +5,9 @@ const errorHandler = require("./middlewares/errorHandler");
 const logger = require("./middlewares/logger");
 const authController = require("./controllers/authController");
 const demoRoute = require("./routes/demo");
+const userRoutes = require("./routes/userRoutes");
+const connectDB = require("./config/db");
+
 require("dotenv").config();
 
 const app = express();
@@ -22,6 +25,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
 app.use(logger); // Logging middleware
 
+// Connect to MongoDB
+connectDB();
+
+
 // Routes
 app.get("/", (req, res) => {
   res.json({ info: "Node.js, Express, and Postgres API" });
@@ -29,6 +36,10 @@ app.get("/", (req, res) => {
 
 // app.use("/demo", authController.verifyToken, demoRoute);
 app.use("/demo",  demoRoute);
+
+// Routes
+app.use("/api/users", userRoutes);
+
 
 // Error handling middleware
 app.use(errorHandler);
