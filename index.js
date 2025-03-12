@@ -6,6 +6,9 @@ const logger = require("./middlewares/logger");
 const authController = require("./controllers/authController");
 const demoRoute = require("./routes/demo");
 const userRoutes = require("./routes/userRoutes");
+const bidRoutes = require("./routes/bidRoutes");
+const transactionRoutes = require("./routes/transactionRoutes");
+
 const connectDB = require("./config/db");
 
 require("dotenv").config();
@@ -40,6 +43,8 @@ app.use("/demo",  demoRoute);
 // Routes
 app.use("/api/users", userRoutes);
 
+app.use("/api/bids", bidRoutes);
+app.use("/api/transactions", transactionRoutes);
 
 // Error handling middleware
 app.use(errorHandler);
